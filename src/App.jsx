@@ -10,6 +10,7 @@ import TrackPage from './pages/TrackPage';
 import BenihPage from './pages/BenihPage';
 import MagangPage from './pages/MagangPage';
 import KonsultasiPage from './pages/KonsultasiPage';
+import NarasumberPage from './pages/NarasumberPage';
 import { BookOpen, X } from 'lucide-react';
 
 function HomePage({ onOpenGuideModal }) {
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/benih" element={<BenihPage />} />
             <Route path="/magang" element={<MagangPage />} />
             <Route path="/konsultasi" element={<KonsultasiPage />} />
+            <Route path="/narasumber" element={<NarasumberPage />} />
           </Routes>
         </main>
         <Footer />
@@ -114,7 +116,7 @@ export default function App() {
                 },
                 {
                   num: '3', title: 'Konsultasi & Permohonan Layanan',
-                  desc: 'Akses menu Konsultasi Ahli atau pilih salah satu dari 6 tile layanan publik digital untuk berkonsultasi dan mengajukan dokumen.',
+                  desc: 'Akses menu Konsultasi Ahli, Magang, atau Narasumber untuk mengajukan permohonan secara online.',
                 },
               ].map((item) => (
                 <div key={item.num} style={{ backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '12px', display: 'flex', gap: '0.8rem' }}>

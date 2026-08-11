@@ -46,9 +46,13 @@ export default function PortalLayanan() {
   const [formData, setFormData] = useState({
     nik: '',
     nama: '',
+    instansi: '',
     alamat: '',
     email: '',
     telepon: '',
+    kegiatan: '',
+    tema: '',
+    tanggal: '',
     pesan: '',
   });
   const [file, setFile] = useState(null);
@@ -61,11 +65,15 @@ export default function PortalLayanan() {
       navigate('/magang');
     } else if (tile.id === 'konsultasi') {
       navigate('/konsultasi');
+    } else if (tile.id === 'narasumber') {
+      navigate('/narasumber');
     } else {
       setSelectedService(tile);
       setSubmitted(null);
       setFile(null);
-      setFormData({ nik: '', nama: '', alamat: '', email: '', telepon: '', pesan: '' });
+      setFormData({
+        nik: '', nama: '', instansi: '', alamat: '', email: '', telepon: '', kegiatan: '', tema: '', tanggal: '', pesan: '',
+      });
     }
   };
 
@@ -83,7 +91,7 @@ export default function PortalLayanan() {
     e.preventDefault();
     const code = `REQ-${Math.floor(1000 + Math.random() * 9000)}`;
     setSubmitted({ code, service: selectedService.title, nama: formData.nama || 'Pemohon BRMP DIY' });
-    setFormData({ nik: '', nama: '', alamat: '', email: '', telepon: '', pesan: '' });
+    setFormData({ nik: '', nama: '', instansi: '', alamat: '', email: '', telepon: '', kegiatan: '', tema: '', tanggal: '', pesan: '' });
     setFile(null);
   };
 
@@ -314,24 +322,6 @@ export default function PortalLayanan() {
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
-                      NIK (Nomor Induk Kependudukan) *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      maxLength={16}
-                      value={formData.nik}
-                      onChange={(e) => setFormData({ ...formData, nik: e.target.value.replace(/\D/g, '') })}
-                      placeholder="16 Digit NIK KTP Anda"
-                      style={{
-                        width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
-                        border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
-                      }}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
                       Nama Lengkap *
                     </label>
                     <input
@@ -349,6 +339,23 @@ export default function PortalLayanan() {
 
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                      Asal Instansi / Organisasi *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.instansi}
+                      onChange={(e) => setFormData({ ...formData, instansi: e.target.value })}
+                      placeholder="Instansi / Poktan / Umum"
+                      style={{
+                        width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
+                        border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
                       Alamat Lengkap *
                     </label>
                     <input
@@ -356,7 +363,7 @@ export default function PortalLayanan() {
                       required
                       value={formData.alamat}
                       onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
-                      placeholder="Alamat domisili lengkap"
+                      placeholder="Alamat domisili / kantor"
                       style={{
                         width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                         border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
@@ -401,13 +408,13 @@ export default function PortalLayanan() {
 
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
-                      Pesan / Detail Permohonan *
+                      Detail Permohonan *
                     </label>
                     <textarea
                       rows={3} required
                       value={formData.pesan}
                       onChange={(e) => setFormData({ ...formData, pesan: e.target.value })}
-                      placeholder="Jelaskan permohonan atau pertanyaan Anda..."
+                      placeholder="Jelaskan kebutuhan permohonan Anda..."
                       style={{
                         width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                         border: '1.5px solid #e2e8f0', fontSize: '0.9rem', resize: 'vertical', outline: 'none',
@@ -417,7 +424,7 @@ export default function PortalLayanan() {
 
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
-                      Upload Dokumen / Foto Pendukung (Opsional)
+                      Upload Dokumen / File Pendukung (Opsional)
                     </label>
                     <input
                       type="file"
