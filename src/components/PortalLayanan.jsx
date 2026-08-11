@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Users, MessageSquareWarning, Building2, Volume2, UserCheck, MapPin,
-  Search, CheckCircle, X, Send, FileCheck,
+  Search, CheckCircle, X, Send, FileCheck, Upload, FileText,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,7 +43,15 @@ export default function PortalLayanan() {
   const [selectedService, setSelectedService] = useState(null);
   const [trackInput, setTrackInput] = useState('');
   const [trackResult, setTrackResult] = useState(null);
-  const [formData, setFormData] = useState({ nama: '', telepon: '', instansi: '', pesan: '' });
+  const [formData, setFormData] = useState({
+    nik: '',
+    nama: '',
+    alamat: '',
+    email: '',
+    telepon: '',
+    pesan: '',
+  });
+  const [file, setFile] = useState(null);
   const [submitted, setSubmitted] = useState(null);
   const [hoveredTile, setHoveredTile] = useState(null);
   const navigate = useNavigate();
@@ -51,9 +59,13 @@ export default function PortalLayanan() {
   const handleTileClick = (tile) => {
     if (tile.id === 'magang') {
       navigate('/magang');
+    } else if (tile.id === 'konsultasi') {
+      navigate('/konsultasi');
     } else {
       setSelectedService(tile);
       setSubmitted(null);
+      setFile(null);
+      setFormData({ nik: '', nama: '', alamat: '', email: '', telepon: '', pesan: '' });
     }
   };
 
@@ -71,7 +83,8 @@ export default function PortalLayanan() {
     e.preventDefault();
     const code = `REQ-${Math.floor(1000 + Math.random() * 9000)}`;
     setSubmitted({ code, service: selectedService.title, nama: formData.nama || 'Pemohon BRMP DIY' });
-    setFormData({ nama: '', telepon: '', instansi: '', pesan: '' });
+    setFormData({ nik: '', nama: '', alamat: '', email: '', telepon: '', pesan: '' });
+    setFile(null);
   };
 
   return (
@@ -255,11 +268,11 @@ export default function PortalLayanan() {
           <div
             style={{
               backgroundColor: '#ffffff', borderRadius: '24px',
-              maxWidth: '540px', width: '100%',
+              maxWidth: '560px', width: '100%',
+              maxHeight: '90vh', overflowY: 'auto',
               padding: '2rem', position: 'relative',
               boxShadow: '0 30px 60px -12px rgba(0,0,0,0.3)',
               animation: 'scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1)',
-              overflow: 'hidden',
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -299,45 +312,129 @@ export default function PortalLayanan() {
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {[
-                    { key: 'nama', label: 'Nama Lengkap / Kelompok Tani *', placeholder: 'Contoh: Pak Budi / Poktan Tani Makmur', type: 'text', required: true },
-                    { key: 'telepon', label: 'Nomor WhatsApp *', placeholder: '0812xxxx', type: 'tel', required: true },
-                    { key: 'instansi', label: 'Asal Daerah / Instansi', placeholder: 'Sleman / Bantul / UGM', type: 'text', required: false },
-                  ].map((f) => (
-                    <div key={f.key}>
-                      <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>{f.label}</label>
+                  <div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                      NIK (Nomor Induk Kependudukan) *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      maxLength={16}
+                      value={formData.nik}
+                      onChange={(e) => setFormData({ ...formData, nik: e.target.value.replace(/\D/g, '') })}
+                      placeholder="16 Digit NIK KTP Anda"
+                      style={{
+                        width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
+                        border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                      Nama Lengkap *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.nama}
+                      onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
+                      placeholder="Nama Sesuai KTP"
+                      style={{
+                        width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
+                        border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                      Alamat Lengkap *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.alamat}
+                      onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
+                      placeholder="Alamat domisili lengkap"
+                      style={{
+                        width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
+                        border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
+                    <div>
+                      <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                        Email *
+                      </label>
                       <input
-                        type={f.type}
-                        required={f.required}
-                        value={formData[f.key]}
-                        onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
-                        placeholder={f.placeholder}
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="nama@email.com"
                         style={{
                           width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                           border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
-                          transition: 'border-color 0.2s ease',
                         }}
-                        onFocus={(e) => (e.target.style.borderColor = selectedService.color)}
-                        onBlur={(e) => (e.target.style.borderColor = '#e2e8f0')}
                       />
                     </div>
-                  ))}
+                    <div>
+                      <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                        No HP / WhatsApp *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.telepon}
+                        onChange={(e) => setFormData({ ...formData, telepon: e.target.value })}
+                        placeholder="0812xxxx"
+                        style={{
+                          width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
+                          border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
+                        }}
+                      />
+                    </div>
+                  </div>
+
                   <div>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>Detail Permohonan *</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                      Pesan / Detail Permohonan *
+                    </label>
                     <textarea
                       rows={3} required
                       value={formData.pesan}
                       onChange={(e) => setFormData({ ...formData, pesan: e.target.value })}
-                      placeholder="Jelaskan kebutuhan permohonan layanan secara singkat..."
+                      placeholder="Jelaskan permohonan atau pertanyaan Anda..."
                       style={{
                         width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                         border: '1.5px solid #e2e8f0', fontSize: '0.9rem', resize: 'vertical', outline: 'none',
-                        transition: 'border-color 0.2s ease',
                       }}
-                      onFocus={(e) => (e.target.style.borderColor = selectedService.color)}
-                      onBlur={(e) => (e.target.style.borderColor = '#e2e8f0')}
                     />
                   </div>
+
+                  <div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
+                      Upload Dokumen / Foto Pendukung (Opsional)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*,.pdf,.doc,.docx"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      style={{
+                        width: '100%', padding: '0.5rem', borderRadius: '10px',
+                        border: '1.5px solid #e2e8f0', fontSize: '0.85rem',
+                      }}
+                    />
+                    {file && (
+                      <div style={{ fontSize: '0.78rem', color: '#16a34a', fontWeight: 600, marginTop: '0.2rem' }}>
+                        ✓ File terpilih: {file.name}
+                      </div>
+                    )}
+                  </div>
+
                   <button
                     type="submit"
                     style={{
@@ -349,8 +446,6 @@ export default function PortalLayanan() {
                       boxShadow: `0 6px 18px ${selectedService.color}40`,
                       transition: 'all 0.25s ease', cursor: 'pointer',
                     }}
-                    onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
-                    onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
                   >
                     <Send size={18} />
                     <span>Kirim Permohonan</span>
@@ -377,7 +472,7 @@ export default function PortalLayanan() {
                   <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0d6e38', letterSpacing: '0.05em' }}>{submitted.code}</div>
                 </div>
                 <button
-                  onClick={() => { setSelectedService(null); setSubmitted(null); }}
+                  onClick={() => { setSelectedService(null); setSubmitted(null); setFile(null); }}
                   style={{
                     backgroundColor: '#0f172a', color: '#ffffff',
                     padding: '0.75rem 1.5rem', borderRadius: '9999px',

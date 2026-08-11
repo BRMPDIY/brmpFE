@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import TrackPage from './pages/TrackPage';
 import BenihPage from './pages/BenihPage';
 import MagangPage from './pages/MagangPage';
+import KonsultasiPage from './pages/KonsultasiPage';
 import { BookOpen, X } from 'lucide-react';
 
 function HomePage({ onOpenGuideModal }) {
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/track" element={<TrackPage />} />
             <Route path="/benih" element={<BenihPage />} />
             <Route path="/magang" element={<MagangPage />} />
+            <Route path="/konsultasi" element={<KonsultasiPage />} />
           </Routes>
         </main>
         <Footer />
@@ -111,8 +113,8 @@ export default function App() {
                   desc: 'Buka halaman Benih Unggulan, pilih varietas yang tersedia, cek stok real-time dan spesifikasi mutu, lalu terhubung langsung via WhatsApp.',
                 },
                 {
-                  num: '3', title: 'Pendaftaran Magang Online',
-                  desc: 'Buka bagian Magang dari Portal Layanan atau Menu Navigasi, lalu baca Informasi & Form Permohonan Magang untuk mendaftar secara online.',
+                  num: '3', title: 'Konsultasi & Permohonan Layanan',
+                  desc: 'Akses menu Konsultasi Ahli atau pilih salah satu dari 6 tile layanan publik digital untuk berkonsultasi dan mengajukan dokumen.',
                 },
               ].map((item) => (
                 <div key={item.num} style={{ backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '12px', display: 'flex', gap: '0.8rem' }}>

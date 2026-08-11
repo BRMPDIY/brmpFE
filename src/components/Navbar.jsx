@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X, Leaf } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
@@ -44,8 +44,8 @@ export default function Navbar() {
       isActive: () => location.pathname === '/magang',
     },
     {
-      id: 'permohonan', label: 'Permohonan', type: 'scroll', hash: '#portal-layanan',
-      isActive: () => false,
+      id: 'konsultasi', label: 'Konsultasi Ahli', type: 'route', to: '/konsultasi',
+      isActive: () => location.pathname === '/konsultasi',
     },
   ];
 
