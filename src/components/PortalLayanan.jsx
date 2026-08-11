@@ -67,6 +67,8 @@ export default function PortalLayanan() {
       navigate('/konsultasi');
     } else if (tile.id === 'narasumber') {
       navigate('/narasumber');
+    } else if (tile.id === 'pengaduan') {
+      navigate('/pengaduan');
     } else {
       setSelectedService(tile);
       setSubmitted(null);
@@ -339,14 +341,15 @@ export default function PortalLayanan() {
 
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
-                      Asal Instansi / Organisasi *
+                      NIK (Nomor Induk Kependudukan) *
                     </label>
                     <input
                       type="text"
                       required
-                      value={formData.instansi}
-                      onChange={(e) => setFormData({ ...formData, instansi: e.target.value })}
-                      placeholder="Instansi / Poktan / Umum"
+                      maxLength={16}
+                      value={formData.nik}
+                      onChange={(e) => setFormData({ ...formData, nik: e.target.value.replace(/\D/g, '') })}
+                      placeholder="16 Digit NIK KTP"
                       style={{
                         width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                         border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
@@ -363,7 +366,7 @@ export default function PortalLayanan() {
                       required
                       value={formData.alamat}
                       onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
-                      placeholder="Alamat domisili / kantor"
+                      placeholder="Alamat domisili lengkap"
                       style={{
                         width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                         border: '1.5px solid #e2e8f0', fontSize: '0.9rem', outline: 'none',
@@ -408,13 +411,13 @@ export default function PortalLayanan() {
 
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
-                      Detail Permohonan *
+                      Detail Permohonan / Uraian *
                     </label>
                     <textarea
                       rows={3} required
                       value={formData.pesan}
                       onChange={(e) => setFormData({ ...formData, pesan: e.target.value })}
-                      placeholder="Jelaskan kebutuhan permohonan Anda..."
+                      placeholder="Jelaskan permohonan atau pengaduan Anda..."
                       style={{
                         width: '100%', padding: '0.7rem 0.9rem', borderRadius: '10px',
                         border: '1.5px solid #e2e8f0', fontSize: '0.9rem', resize: 'vertical', outline: 'none',
@@ -424,7 +427,7 @@ export default function PortalLayanan() {
 
                   <div>
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.3rem' }}>
-                      Upload Dokumen / File Pendukung (Opsional)
+                      Upload Dokumen / Foto Bukti Pendukung (Opsional)
                     </label>
                     <input
                       type="file"
