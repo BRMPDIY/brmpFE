@@ -40,6 +40,10 @@ export default function Navbar() {
       isActive: () => location.pathname === '/benih',
     },
     {
+      id: 'magang', label: 'Magang', type: 'scroll', hash: '#magang',
+      isActive: () => location.pathname === '/magang',
+    },
+    {
       id: 'permohonan', label: 'Permohonan', type: 'scroll', hash: '#portal-layanan',
       isActive: () => false,
     },

@@ -5,9 +5,11 @@ import Hero from './components/Hero';
 import LabTracking from './components/LabTracking';
 import BenihSection from './components/BenihSection';
 import PortalLayanan from './components/PortalLayanan';
+import MagangSection from './components/MagangSection';
 import Footer from './components/Footer';
 import TrackPage from './pages/TrackPage';
 import BenihPage from './pages/BenihPage';
+import MagangPage from './pages/MagangPage';
 import { BookOpen, X } from 'lucide-react';
 
 function HomePage({ onOpenGuideModal }) {
@@ -23,6 +25,7 @@ function HomePage({ onOpenGuideModal }) {
       <LabTracking />
       <BenihSection />
       <PortalLayanan />
+      <MagangSection />
     </>
   );
 }
@@ -39,6 +42,7 @@ export default function App() {
             <Route path="/" element={<HomePage onOpenGuideModal={() => setGuideModalOpen(true)} />} />
             <Route path="/track" element={<TrackPage />} />
             <Route path="/benih" element={<BenihPage />} />
+            <Route path="/magang" element={<MagangPage />} />
           </Routes>
         </main>
         <Footer />
@@ -109,8 +113,8 @@ export default function App() {
                   desc: 'Buka halaman Benih Unggulan, pilih varietas yang tersedia, cek stok real-time dan spesifikasi mutu, lalu terhubung langsung via WhatsApp.',
                 },
                 {
-                  num: '3', title: 'Pengajuan Permohonan Layanan',
-                  desc: 'Pilih salah satu dari 6 tile layanan publik (Konsultasi, Pengaduan, Magang, Narasumber, PPID, Kunjungan), isi formulir, dan simpan Nomor Resi yang diberikan.',
+                  num: '3', title: 'Pendaftaran Magang Online',
+                  desc: 'Buka bagian Magang, baca Informasi Magang, lalu buka Form Permohonan Magang untuk mendaftar secara online.',
                 },
               ].map((item) => (
                 <div key={item.num} style={{ backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '12px', display: 'flex', gap: '0.8rem' }}>
