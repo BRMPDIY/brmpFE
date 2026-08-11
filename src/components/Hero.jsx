@@ -6,6 +6,169 @@ function Particle({ style }) {
   return <div className="particle" style={style} />;
 }
 
+// SVG Plant component – animated growing stem + swaying leaves
+function PlantSVG({ x, variant = 0, scale = 1, delay = 0 }) {
+  const colors = [
+    { stem: '#10b981', leaf: '#34d399', leafDark: '#059669', flower: '#fbbf24' },
+    { stem: '#0d6e38', leaf: '#22c55e', leafDark: '#16a34a', flower: '#f472b6' },
+    { stem: '#059669', leaf: '#4ade80', leafDark: '#15803d', flower: '#fb923c' },
+  ];
+  const c = colors[variant % colors.length];
+
+  return (
+    <svg
+      viewBox="0 0 80 160"
+      width={60 * scale}
+      height={120 * scale}
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: x,
+        transformOrigin: 'bottom center',
+        animation: `plantSway ${3 + variant * 0.7}s ease-in-out infinite`,
+        animationDelay: `${delay}s`,
+        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.2))',
+      }}
+    >
+      {/* Main stem */}
+      <path
+        d="M40,155 Q38,120 40,90 Q42,60 38,30"
+        stroke={c.stem}
+        strokeWidth="3.5"
+        fill="none"
+        strokeLinecap="round"
+        style={{
+          strokeDasharray: 160,
+          strokeDashoffset: 160,
+          animation: `growStem 1.8s ${delay}s cubic-bezier(0.22,1,0.36,1) forwards`,
+        }}
+      />
+
+      {/* Left leaf 1 */}
+      <path
+        d="M39,105 Q20,95 14,75 Q30,80 38,95"
+        fill={c.leaf}
+        opacity="0.9"
+        style={{
+          transformOrigin: '39px 105px',
+          animation: `leafBloom 0.6s ${delay + 0.6}s cubic-bezier(0.34,1.56,0.64,1) both`,
+        }}
+      />
+
+      {/* Right leaf 1 */}
+      <path
+        d="M41,100 Q60,88 66,68 Q50,75 42,92"
+        fill={c.leafDark}
+        opacity="0.9"
+        style={{
+          transformOrigin: '41px 100px',
+          animation: `leafBloom 0.6s ${delay + 0.75}s cubic-bezier(0.34,1.56,0.64,1) both`,
+        }}
+      />
+
+      {/* Left leaf 2 */}
+      <path
+        d="M39,75 Q18,62 12,44 Q30,52 39,68"
+        fill={c.leafDark}
+        opacity="0.85"
+        style={{
+          transformOrigin: '39px 75px',
+          animation: `leafBloom 0.6s ${delay + 0.95}s cubic-bezier(0.34,1.56,0.64,1) both`,
+        }}
+      />
+
+      {/* Right leaf 2 */}
+      <path
+        d="M41,68 Q62,56 68,36 Q50,46 41,62"
+        fill={c.leaf}
+        opacity="0.85"
+        style={{
+          transformOrigin: '41px 68px',
+          animation: `leafBloom 0.6s ${delay + 1.1}s cubic-bezier(0.34,1.56,0.64,1) both`,
+        }}
+      />
+
+      {/* Flower top */}
+      <g
+        style={{
+          transformOrigin: '38px 28px',
+          animation: `flowerBloom 0.5s ${delay + 1.4}s cubic-bezier(0.34,1.56,0.64,1) both`,
+        }}
+      >
+        {/* Petals */}
+        {[0, 60, 120, 180, 240, 300].map((deg, idx) => (
+          <ellipse
+            key={idx}
+            cx={38 + Math.cos((deg * Math.PI) / 180) * 8}
+            cy={28 + Math.sin((deg * Math.PI) / 180) * 8}
+            rx="5"
+            ry="3.5"
+            fill={c.flower}
+            opacity="0.9"
+            transform={`rotate(${deg} ${38 + Math.cos((deg * Math.PI) / 180) * 8} ${28 + Math.sin((deg * Math.PI) / 180) * 8})`}
+          />
+        ))}
+        {/* Center */}
+        <circle cx="38" cy="28" r="5.5" fill="#fef08a" />
+        <circle cx="38" cy="28" r="3" fill="#fbbf24" />
+      </g>
+    </svg>
+  );
+}
+
+// Grass blade
+function GrassBlade({ x, height, delay, color }) {
+  return (
+    <svg
+      viewBox="0 0 20 60"
+      width={14}
+      height={height}
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: x,
+        transformOrigin: 'bottom center',
+        animation: `grassSway ${2 + Math.random() * 1.5}s ease-in-out infinite`,
+        animationDelay: `${delay}s`,
+      }}
+    >
+      <path
+        d="M10,58 Q8,40 9,20 Q10,5 11,0"
+        stroke={color}
+        strokeWidth="2.5"
+        fill="none"
+        strokeLinecap="round"
+        style={{
+          strokeDasharray: 70,
+          strokeDashoffset: 70,
+          animation: `growStem 1.2s ${delay}s ease-out forwards`,
+        }}
+      />
+    </svg>
+  );
+}
+
+// Floating leaf particle
+function FloatingLeaf({ style, variant }) {
+  const emojis = ['🌿', '🍃', '🌱', '✨'];
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        fontSize: `${12 + variant * 4}px`,
+        animation: `floatLeaf ${8 + variant * 3}s ease-in-out infinite`,
+        animationDelay: `${variant * 1.5}s`,
+        opacity: 0.7,
+        zIndex: 2,
+        pointerEvents: 'none',
+        ...style,
+      }}
+    >
+      {emojis[variant % emojis.length]}
+    </div>
+  );
+}
+
 export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
   const [loaded, setLoaded] = useState(false);
   const particles = useRef(
@@ -22,6 +185,36 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
     const t = setTimeout(() => setLoaded(true), 80);
     return () => clearTimeout(t);
   }, []);
+
+  // Plant positions – spread across bottom of hero
+  const plants = [
+    { x: '1%',  variant: 0, scale: 1.3, delay: 0.2 },
+    { x: '7%',  variant: 1, scale: 0.9, delay: 0.5 },
+    { x: '13%', variant: 2, scale: 1.1, delay: 0.1 },
+    { x: '19%', variant: 0, scale: 0.8, delay: 0.7 },
+    { x: '75%', variant: 1, scale: 0.9, delay: 0.4 },
+    { x: '81%', variant: 2, scale: 1.2, delay: 0.0 },
+    { x: '87%', variant: 0, scale: 0.85, delay: 0.6 },
+    { x: '93%', variant: 1, scale: 1.0, delay: 0.3 },
+  ];
+
+  // Grass blades – densely packed bottom edges
+  const grassBlades = Array.from({ length: 60 }, (_, i) => ({
+    x: `${(i / 60) * 100}%`,
+    height: 25 + Math.random() * 25,
+    delay: Math.random() * 2,
+    color: ['#22c55e', '#16a34a', '#4ade80', '#15803d', '#10b981'][Math.floor(Math.random() * 5)],
+  }));
+
+  // Floating leaves
+  const floatingLeaves = [
+    { style: { top: '15%', left: '25%' }, variant: 0 },
+    { style: { top: '30%', right: '28%' }, variant: 1 },
+    { style: { top: '60%', left: '60%' }, variant: 2 },
+    { style: { top: '20%', right: '40%' }, variant: 3 },
+    { style: { top: '50%', left: '18%' }, variant: 1 },
+    { style: { top: '75%', right: '18%' }, variant: 0 },
+  ];
 
   return (
     <section
@@ -72,6 +265,53 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
         animation: 'pulseGlow 8s 2s ease-in-out infinite',
       }} />
 
+      {/* ---- PLANT ANIMATIONS LAYER ---- */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 3, pointerEvents: 'none', overflow: 'hidden',
+      }}>
+        {/* Grass blades strip along the bottom */}
+        <div style={{ position: 'absolute', bottom: 68, left: 0, right: 0, height: 60 }}>
+          {grassBlades.map((g, i) => (
+            <GrassBlade key={i} x={g.x} height={g.height} delay={g.delay} color={g.color} />
+          ))}
+        </div>
+
+        {/* Bigger plants */}
+        <div style={{ position: 'absolute', bottom: 68, left: 0, right: 0 }}>
+          {plants.map((p, i) => (
+            <PlantSVG key={i} x={p.x} variant={p.variant} scale={p.scale} delay={p.delay} />
+          ))}
+        </div>
+
+        {/* Ground strip - dark soil strip */}
+        <div style={{
+          position: 'absolute', bottom: 68, left: 0, right: 0, height: '6px',
+          background: 'linear-gradient(90deg, rgba(5,46,22,0.9), rgba(13,80,42,0.7), rgba(5,46,22,0.9))',
+          borderRadius: '2px 2px 0 0',
+        }} />
+
+        {/* Floating leaves drifting */}
+        {floatingLeaves.map((leaf, i) => (
+          <FloatingLeaf key={i} style={leaf.style} variant={leaf.variant} />
+        ))}
+
+        {/* Sparkle twinkles scattered */}
+        {[
+          { top: '12%', left: '30%' }, { top: '40%', left: '8%' },
+          { top: '25%', right: '20%' }, { top: '55%', right: '8%' },
+          { top: '70%', left: '40%' },
+        ].map((pos, i) => (
+          <div key={i} style={{
+            position: 'absolute', width: '6px', height: '6px',
+            borderRadius: '50%', backgroundColor: '#fde047',
+            animation: `twinkle ${2 + i * 0.6}s ease-in-out infinite`,
+            animationDelay: `${i * 0.7}s`,
+            boxShadow: '0 0 8px 3px rgba(253,224,71,0.5)',
+            ...pos,
+          }} />
+        ))}
+      </div>
+
       {/* Floating Particles */}
       {particles.map((p) => (
         <Particle key={p.id} style={{
@@ -94,7 +334,7 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
           gap: '3rem',
           alignItems: 'center',
           position: 'relative',
-          zIndex: 3,
+          zIndex: 4,
         }}
         className="hero-grid"
       >
@@ -326,7 +566,7 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
       </div>
 
       {/* Bottom wave */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 4, lineHeight: 0 }}>
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 5, lineHeight: 0 }}>
         <svg viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style={{ width: '100%', height: '80px' }}>
           <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff" />
         </svg>
@@ -337,6 +577,52 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
           .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
           .hero-grid > div:first-child { align-items: center !important; }
           .hero-emblem-container { margin-top: 2rem; }
+        }
+
+        /* Plant stem grows upward */
+        @keyframes growStem {
+          to { stroke-dashoffset: 0; }
+        }
+
+        /* Leaf pops in from transform origin */
+        @keyframes leafBloom {
+          from { transform: scale(0) rotate(-30deg); opacity: 0; }
+          to   { transform: scale(1) rotate(0deg);  opacity: 1; }
+        }
+
+        /* Flower blooms */
+        @keyframes flowerBloom {
+          from { transform: scale(0) rotate(-90deg); opacity: 0; }
+          to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+        }
+
+        /* Whole plant sways in the breeze */
+        @keyframes plantSway {
+          0%, 100% { transform: rotate(0deg); }
+          25%       { transform: rotate(2.5deg); }
+          75%       { transform: rotate(-2.5deg); }
+        }
+
+        /* Individual grass blades sway */
+        @keyframes grassSway {
+          0%, 100% { transform: rotate(0deg); }
+          30%       { transform: rotate(4deg); }
+          70%       { transform: rotate(-3deg); }
+        }
+
+        /* Floating emoji leaves drift */
+        @keyframes floatLeaf {
+          0%   { transform: translate(0, 0) rotate(0deg);    opacity: 0.6; }
+          25%  { transform: translate(10px,-15px) rotate(20deg); opacity: 0.8; }
+          50%  { transform: translate(-5px,-8px) rotate(-10deg); opacity: 0.6; }
+          75%  { transform: translate(8px,-18px) rotate(15deg);  opacity: 0.8; }
+          100% { transform: translate(0, 0) rotate(0deg);    opacity: 0.6; }
+        }
+
+        /* Sparkle twinkle */
+        @keyframes twinkle {
+          0%, 100% { transform: scale(1);   opacity: 0.8; }
+          50%       { transform: scale(1.8); opacity: 0.2; }
         }
       `}</style>
     </section>
