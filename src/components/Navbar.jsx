@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Menu, X, Leaf } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
@@ -173,33 +173,35 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* CTA + Mobile toggle */}
+        {/* CTA WhatsApp + Mobile toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Link
-            to="/track"
+          <a
+            href="https://wa.me/6281234567890?text=Halo%20BRMP%20DIY,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20pertanian%20dan%20benih"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-ripple"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              background: 'linear-gradient(135deg, #d97706, #b45309)',
+              background: 'linear-gradient(135deg, #25D366, #128C7E)',
               color: '#ffffff', padding: '0.65rem 1.3rem', borderRadius: '9999px',
               fontSize: '0.88rem', fontWeight: 700,
-              boxShadow: '0 4px 14px rgba(217,119,6,0.35)',
+              boxShadow: '0 4px 14px rgba(37,211,102,0.35)',
               transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
               animation: 'fadeInUp 0.5s 0.3s both',
               textDecoration: 'none',
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px) scale(1.04)';
-              e.currentTarget.style.boxShadow = '0 8px 20px rgba(217,119,6,0.45)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(37,211,102,0.45)';
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 14px rgba(217,119,6,0.35)';
+              e.currentTarget.style.boxShadow = '0 4px 14px rgba(37,211,102,0.35)';
             }}
           >
-            <span>Lacak Resi</span>
-            <ArrowRight size={15} />
-          </Link>
+            <MessageCircle size={17} />
+            <span>Hubungi WhatsApp</span>
+          </a>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -254,17 +256,19 @@ export default function Navbar() {
               </button>
             );
           })}
-          <Link
-            to="/track"
+          <a
+            href="https://wa.me/6281234567890?text=Halo%20BRMP%20DIY,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20pertanian%20dan%20benih"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               marginTop: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-              background: 'linear-gradient(135deg, #d97706, #b45309)', color: '#ffffff',
+              background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#ffffff',
               padding: '0.75rem', borderRadius: '10px', fontWeight: 700, textDecoration: 'none',
             }}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Lacak Resi <ArrowRight size={16} />
-          </Link>
+            <MessageCircle size={18} /> Hubungi WhatsApp
+          </a>
         </div>
       </div>
     </header>
