@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronRight, BookOpen, Sparkles, Shield, Leaf } from 'lucide-react';
+import { ChevronRight, BookOpen, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function Particle({ style }) {
   return <div className="particle" style={style} />;
@@ -172,13 +173,8 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
               transition: 'all 0.6s 0.44s cubic-bezier(0.22,1,0.36,1)',
             }}
           >
-            <a
-              href="#informasi-benih"
-              onClick={(e) => {
-                e.preventDefault();
-                const elem = document.querySelector('#informasi-benih');
-                if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-              }}
+            <Link
+              to="/benih"
               className="btn-ripple card-shine"
               style={{
                 display: 'inline-flex',
@@ -204,10 +200,9 @@ export default function Hero({ onOpenBenihModal, onOpenGuideModal }) {
                 e.currentTarget.style.boxShadow = '0 8px 24px rgba(13,110,56,0.45), inset 0 1px 0 rgba(255,255,255,0.2)';
               }}
             >
-              <Leaf size={18} />
-              <span>Layanan Perbenihan</span>
+              <span>🌾 Katalog Benih</span>
               <ChevronRight size={17} />
-            </a>
+            </Link>
 
             <button
               onClick={onOpenGuideModal}

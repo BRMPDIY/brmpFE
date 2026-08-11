@@ -19,7 +19,7 @@ const sampleDatabase = [
     title: 'Uji Mutu & Daya Kecambah Benih Padi Ciherang',
     pemohon: 'Kelompok Tani Sido Mulyo, Sleman',
     tanggalMasuk: '02 Agustus 2026',
-    step: 3,
+    step: 4,
     parameter: [
       { nama: 'Daya Kecambah', nilai: '94%', standar: '≥ 80%', status: 'Memenuhi' },
       { nama: 'Kemurnian Benih', nilai: '99.2%', standar: '≥ 98%', status: 'Memenuhi' },
@@ -31,7 +31,7 @@ const sampleDatabase = [
     title: 'Uji Kemurnian & Kadar Air Benih Jagung Hibrida',
     pemohon: 'Dinas Pertanian Bantul',
     tanggalMasuk: '05 Agustus 2026',
-    step: 4,
+    step: 5,
     parameter: [
       { nama: 'Daya Kecambah', nilai: '96%', standar: '≥ 85%', status: 'Memenuhi' },
       { nama: 'Kemurnian Benih', nilai: '99.5%', standar: '≥ 99%', status: 'Memenuhi' },
@@ -42,7 +42,7 @@ const sampleDatabase = [
     title: 'Analisis Unsur Hara Tanah Sawah Kulon Progo',
     pemohon: 'BPP Nanggulan',
     tanggalMasuk: '08 Agustus 2026',
-    step: 2,
+    step: 3,
     parameter: [
       { nama: 'pH Tanah', nilai: '6.5', standar: '6.0–7.0', status: 'Optimal' },
       { nama: 'N-Total', nilai: '0.25%', standar: 'Sedang', status: 'Memenuhi' },
@@ -50,7 +50,7 @@ const sampleDatabase = [
   },
 ];
 
-const STEPS = ['Sampel Diterima', 'Pengujian Lab', 'Verifikasi Mutu', 'Sertifikat Terbit'];
+const STEPS = ['Pengajuan Diterima', 'Verifikasi Dokumen', 'Pengujian Sampel', 'Analisis Hasil', 'Laporan Selesai'];
 
 export default function LabTracking() {
   const [sectionRef, sectionVisible] = useScrollReveal();
@@ -293,7 +293,7 @@ export default function LabTracking() {
               }}>
                 <div style={{
                   height: '100%', borderRadius: '2px',
-                  width: `${((activeResult.step - 1) / 3) * 100}%`,
+                  width: `${((activeResult.step - 1) / 4) * 100}%`,
                   background: 'linear-gradient(90deg, #0d6e38, #10b981)',
                   transition: 'width 1s ease',
                 }} />
