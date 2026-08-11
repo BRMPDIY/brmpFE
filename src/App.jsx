@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import LabTracking from './components/LabTracking';
 import BenihSection from './components/BenihSection';
 import PortalLayanan from './components/PortalLayanan';
-import MagangSection from './components/MagangSection';
 import Footer from './components/Footer';
 import TrackPage from './pages/TrackPage';
 import BenihPage from './pages/BenihPage';
@@ -25,7 +24,6 @@ function HomePage({ onOpenGuideModal }) {
       <LabTracking />
       <BenihSection />
       <PortalLayanan />
-      <MagangSection />
     </>
   );
 }
@@ -114,7 +112,7 @@ export default function App() {
                 },
                 {
                   num: '3', title: 'Pendaftaran Magang Online',
-                  desc: 'Buka bagian Magang, baca Informasi Magang, lalu buka Form Permohonan Magang untuk mendaftar secara online.',
+                  desc: 'Buka bagian Magang dari Portal Layanan atau Menu Navigasi, lalu baca Informasi & Form Permohonan Magang untuk mendaftar secara online.',
                 },
               ].map((item) => (
                 <div key={item.num} style={{ backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '12px', display: 'flex', gap: '0.8rem' }}>

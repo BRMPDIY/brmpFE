@@ -3,6 +3,7 @@ import {
   Users, MessageSquareWarning, Building2, Volume2, UserCheck, MapPin,
   Search, CheckCircle, X, Send, FileCheck,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function useScrollReveal(threshold = 0.1) {
   const ref = useRef(null);
@@ -45,6 +46,16 @@ export default function PortalLayanan() {
   const [formData, setFormData] = useState({ nama: '', telepon: '', instansi: '', pesan: '' });
   const [submitted, setSubmitted] = useState(null);
   const [hoveredTile, setHoveredTile] = useState(null);
+  const navigate = useNavigate();
+
+  const handleTileClick = (tile) => {
+    if (tile.id === 'magang') {
+      navigate('/magang');
+    } else {
+      setSelectedService(tile);
+      setSubmitted(null);
+    }
+  };
 
   const handleTrack = (e) => {
     e.preventDefault();
@@ -137,7 +148,7 @@ export default function PortalLayanan() {
               return (
                 <div
                   key={tile.id}
-                  onClick={() => { setSelectedService(tile); setSubmitted(null); }}
+                  onClick={() => handleTileClick(tile)}
                   onMouseOver={() => setHoveredTile(tile.id)}
                   onMouseOut={() => setHoveredTile(null)}
                   style={{
