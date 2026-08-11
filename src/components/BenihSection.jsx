@@ -139,12 +139,22 @@ export default function BenihSection() {
               <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.2rem' }}>
                 {benih.nama}
               </h3>
-              <div style={{ fontSize: '0.88rem', fontWeight: 700, color: benih.color, marginBottom: '0.4rem' }}>
-                {benih.stok}
-              </div>
-              <p style={{ fontSize: '0.76rem', color: '#64748b', lineHeight: 1.4, marginBottom: '0.9rem' }}>
+              <p style={{ fontSize: '0.76rem', color: '#64748b', lineHeight: 1.4, marginBottom: '0.5rem' }}>
                 {benih.varietas}
               </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', marginBottom: '0.9rem' }}>
+                <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>Stok:</span>
+                  <span style={{ fontWeight: 700, color: benih.color }}>{benih.stok}</span>
+                </div>
+                <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>Harga:</span>
+                  <span style={{ fontWeight: 800, color: '#0d6e38', backgroundColor: '#f0fdf4', padding: '0.15rem 0.5rem', borderRadius: '6px', border: '1px solid #bbf7d0' }}>
+                    {benih.harga}
+                  </span>
+                </div>
+              </div>
 
               <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
