@@ -17,12 +17,54 @@ function useScrollReveal(threshold = 0.1) {
 }
 
 const serviceTiles = [
-  { id: 'konsultasi', title: 'Konsultasi', icon: Users, color: '#10b981', bgColor: '#d1fae5', desc: 'Layanan konsultasi teknis budidaya dan penerapan standar agro modern dengan pakar BRMP DIY.' },
-  { id: 'pengaduan', title: 'Pengaduan', icon: MessageSquareWarning, color: '#f59e0b', bgColor: '#fef3c7', desc: 'Saluran pengaduan resmi pelayanan publik dan mutu benih/pupuk di wilayah D.I. Yogyakarta.' },
-  { id: 'magang', title: 'Magang', icon: Building2, color: '#6366f1', bgColor: '#ede9fe', desc: 'Pendaftaran magang & PKL mahasiswa/siswa di Lab & Kebun Percobaan BRMP DIY.' },
-  { id: 'narasumber', title: 'Narasumber', icon: Volume2, color: '#0ea5e9', bgColor: '#e0f2fe', desc: 'Permohonan narasumber ahli untuk bimbingan teknis, workshop, dan seminar pertanian.' },
-  { id: 'informasi-publik', title: 'Permohonan Informasi Publik', icon: UserCheck, color: '#8b5cf6', bgColor: '#f5f3ff', desc: 'Permohonan data publik, dokumen standar teknis, dan laporan resmi PPID BRMP DIY.' },
-  { id: 'kunjungan', title: 'Kunjungan', icon: MapPin, color: '#ef4444', bgColor: '#fee2e2', desc: 'Pengajuan kunjungan edukasi ke fasilitas laboratorium & lahan modern BRMP DIY.' },
+  {
+    id: 'konsultasi', title: 'Konsultasi', icon: Users,
+    gradient: 'linear-gradient(135deg, #0d6e38 0%, #10b981 100%)',
+    glowColor: 'rgba(16,185,129,0.45)',
+    iconBg: 'rgba(255,255,255,0.22)',
+    desc: 'Konsultasi teknis budidaya & standar agro modern dengan pakar BRMP DIY.',
+    emoji: '🌱',
+  },
+  {
+    id: 'pengaduan', title: 'Pengaduan', icon: MessageSquareWarning,
+    gradient: 'linear-gradient(135deg, #d97706 0%, #fbbf24 100%)',
+    glowColor: 'rgba(251,191,36,0.45)',
+    iconBg: 'rgba(255,255,255,0.22)',
+    desc: 'Saluran pengaduan resmi mutu benih, pupuk & pelayanan publik DIY.',
+    emoji: '📣',
+  },
+  {
+    id: 'magang', title: 'Magang / PKL', icon: Building2,
+    gradient: 'linear-gradient(135deg, #4f46e5 0%, #818cf8 100%)',
+    glowColor: 'rgba(129,140,248,0.45)',
+    iconBg: 'rgba(255,255,255,0.22)',
+    desc: 'Pendaftaran magang & PKL mahasiswa di Lab & Kebun Percobaan BRMP DIY.',
+    emoji: '🎓',
+  },
+  {
+    id: 'narasumber', title: 'Narasumber', icon: Volume2,
+    gradient: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)',
+    glowColor: 'rgba(56,189,248,0.45)',
+    iconBg: 'rgba(255,255,255,0.22)',
+    desc: 'Permohonan narasumber ahli untuk workshop, bimtek & seminar pertanian.',
+    emoji: '🎙️',
+  },
+  {
+    id: 'informasi-publik', title: 'Informasi Publik', icon: UserCheck,
+    gradient: 'linear-gradient(135deg, #7c3aed 0%, #c084fc 100%)',
+    glowColor: 'rgba(192,132,252,0.45)',
+    iconBg: 'rgba(255,255,255,0.22)',
+    desc: 'Permohonan data publik, dokumen teknis & laporan resmi PPID BRMP DIY.',
+    emoji: '📋',
+  },
+  {
+    id: 'kunjungan', title: 'Kunjungan', icon: MapPin,
+    gradient: 'linear-gradient(135deg, #dc2626 0%, #fb7185 100%)',
+    glowColor: 'rgba(251,113,133,0.45)',
+    iconBg: 'rgba(255,255,255,0.22)',
+    desc: 'Pengajuan kunjungan edukasi ke fasilitas lab & lahan modern BRMP DIY.',
+    emoji: '🏛️',
+  },
 ];
 
 const requestDatabase = {
@@ -102,67 +144,99 @@ export default function PortalLayanan() {
       id="portal-layanan"
       ref={sectionRef}
       style={{
-        background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
+        background: 'linear-gradient(180deg, #f0fdf4 0%, #dcfce7 40%, #f8fafc 100%)',
         padding: '6rem 1.5rem',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Background accent */}
+      {/* Animated background orbs */}
       <div style={{
-        position: 'absolute', top: '10%', left: '-100px',
-        width: '400px', height: '400px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(13,110,56,0.06) 0%, transparent 70%)',
-        pointerEvents: 'none',
+        position: 'absolute', top: '5%', left: '-80px',
+        width: '420px', height: '420px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)',
+        pointerEvents: 'none', animation: 'floatOrb 8s ease-in-out infinite',
+      }} />
+      <div style={{
+        position: 'absolute', bottom: '10%', right: '-60px',
+        width: '320px', height: '320px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(13,110,56,0.1) 0%, transparent 70%)',
+        pointerEvents: 'none', animation: 'floatOrb 11s ease-in-out infinite reverse',
+      }} />
+      <div style={{
+        position: 'absolute', top: '40%', right: '15%',
+        width: '200px', height: '200px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(251,191,36,0.08) 0%, transparent 70%)',
+        pointerEvents: 'none', animation: 'floatOrb 6s ease-in-out infinite 2s',
       }} />
 
-      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
         {/* Header */}
         <div style={{
-          textAlign: 'center', maxWidth: '750px', margin: '0 auto 3rem auto',
+          textAlign: 'center', maxWidth: '750px', margin: '0 auto 3.5rem auto',
           opacity: sectionVisible ? 1 : 0,
           transform: sectionVisible ? 'translateY(0)' : 'translateY(30px)',
           transition: 'all 0.7s cubic-bezier(0.22,1,0.36,1)',
         }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            backgroundColor: '#dcfce7', color: '#15803d',
-            padding: '0.4rem 1rem', borderRadius: '9999px',
+            background: 'linear-gradient(135deg, #0d6e38, #10b981)',
+            color: '#ffffff',
+            padding: '0.45rem 1.2rem', borderRadius: '9999px',
             fontSize: '0.76rem', fontWeight: 700, letterSpacing: '0.08em',
-            textTransform: 'uppercase', marginBottom: '1rem',
-            border: '1px solid rgba(22,163,74,0.2)',
+            textTransform: 'uppercase', marginBottom: '1.2rem',
+            boxShadow: '0 4px 14px rgba(13,110,56,0.3)',
           }}>
-            🏛️ Layanan Publik Digital
+            🏛️ Layanan Publik Digital BRMP DIY
           </div>
           <h2 style={{
-            fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
+            fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
             fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em',
+            lineHeight: 1.2,
           }}>
-            Portal Sistem Informasi Manajemen Agro Modern
+            Portal Sistem Informasi
+            <span style={{
+              display: 'block',
+              background: 'linear-gradient(135deg, #0d6e38, #10b981)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            }}>Manajemen Agro Modern</span>
           </h2>
+          <p style={{ fontSize: '0.95rem', color: '#64748b', marginTop: '0.75rem', lineHeight: 1.6 }}>
+            Pilih layanan yang Anda butuhkan untuk mengajukan permohonan secara digital
+          </p>
         </div>
 
-        {/* Portal Container - 6 Tiles */}
+        {/* Portal Container - 6 Gradient Tiles */}
         <div
           style={{
-            background: 'linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)',
-            borderRadius: '28px',
-            padding: '3rem 2.5rem',
+            background: 'linear-gradient(135deg, rgba(13,110,56,0.06) 0%, rgba(16,185,129,0.04) 50%, rgba(255,255,255,0.8) 100%)',
+            borderRadius: '32px',
+            padding: '2.5rem',
             marginBottom: '2.5rem',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-            border: '1px solid rgba(255,255,255,0.5)',
+            boxShadow: '0 20px 60px rgba(13,110,56,0.08), 0 1px 0 rgba(255,255,255,0.8) inset',
+            border: '1px solid rgba(16,185,129,0.15)',
+            backdropFilter: 'blur(12px)',
             opacity: sectionVisible ? 1 : 0,
             transform: sectionVisible ? 'translateY(0)' : 'translateY(35px)',
             transition: 'all 0.7s 0.15s cubic-bezier(0.22,1,0.36,1)',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
+          {/* Container inner glow */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1.25rem',
-            maxWidth: '780px',
-            margin: '0 auto',
-          }}
+            position: 'absolute', inset: 0, borderRadius: '32px',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%)',
+            pointerEvents: 'none',
+          }} />
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '1.2rem',
+              position: 'relative',
+            }}
             className="portal-grid"
           >
             {serviceTiles.map((tile, i) => {
@@ -175,44 +249,122 @@ export default function PortalLayanan() {
                   onMouseOver={() => setHoveredTile(tile.id)}
                   onMouseOut={() => setHoveredTile(null)}
                   style={{
-                    backgroundColor: isHover ? '#ffffff' : 'rgba(255,255,255,0.55)',
-                    borderRadius: '18px',
-                    padding: '2rem 1.2rem',
+                    borderRadius: '22px',
+                    padding: '1.8rem 1.2rem 1.5rem',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                     textAlign: 'center',
                     cursor: 'pointer',
-                    border: isHover ? `2px solid ${tile.color}40` : '2px solid rgba(255,255,255,0.4)',
-                    boxShadow: isHover ? `0 16px 36px ${tile.color}25` : '0 4px 12px rgba(0,0,0,0.04)',
-                    transition: 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
-                    transform: isHover ? 'translateY(-8px) scale(1.04)' : 'translateY(0) scale(1)',
-                    animation: sectionVisible ? `fadeInUp 0.5s ${i * 0.08 + 0.3}s both` : 'none',
-                    opacity: sectionVisible ? undefined : 0,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    background: isHover
+                      ? tile.gradient
+                      : 'rgba(255,255,255,0.85)',
+                    border: isHover
+                      ? '1.5px solid rgba(255,255,255,0.4)'
+                      : '1.5px solid rgba(255,255,255,0.6)',
+                    boxShadow: isHover
+                      ? `0 20px 50px ${tile.glowColor}, 0 0 0 1px rgba(255,255,255,0.2) inset`
+                      : '0 4px 16px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.9) inset',
+                    transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                    transform: isHover ? 'translateY(-10px) scale(1.05)' : 'translateY(0) scale(1)',
+                    animation: sectionVisible ? `fadeInUp 0.55s ${i * 0.09 + 0.25}s both` : 'none',
                     backdropFilter: 'blur(8px)',
+                    minHeight: '160px',
                   }}
                 >
-                  {/* Icon with colored bg */}
+                  {/* Shimmer overlay on hover */}
+                  {isHover && (
+                    <div style={{
+                      position: 'absolute', inset: 0, borderRadius: '22px',
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%)',
+                      pointerEvents: 'none',
+                    }} />
+                  )}
+
+                  {/* Floating particles on hover */}
+                  {isHover && (
+                    <>
+                      <div style={{
+                        position: 'absolute', top: '12px', right: '14px',
+                        width: '6px', height: '6px', borderRadius: '50%',
+                        backgroundColor: 'rgba(255,255,255,0.6)',
+                        animation: 'particleFloat 1.5s ease-in-out infinite',
+                      }} />
+                      <div style={{
+                        position: 'absolute', bottom: '18px', left: '16px',
+                        width: '4px', height: '4px', borderRadius: '50%',
+                        backgroundColor: 'rgba(255,255,255,0.4)',
+                        animation: 'particleFloat 2s ease-in-out infinite 0.5s',
+                      }} />
+                    </>
+                  )}
+
+                  {/* Icon container */}
                   <div style={{
-                    width: '64px', height: '64px', borderRadius: '18px',
-                    backgroundColor: isHover ? tile.bgColor : 'rgba(255,255,255,0.6)',
-                    color: tile.color,
+                    width: '64px', height: '64px', borderRadius: '20px',
+                    background: isHover ? tile.iconBg : tile.gradient,
+                    color: isHover ? '#ffffff' : '#ffffff',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     marginBottom: '1rem',
-                    boxShadow: isHover ? `0 6px 16px ${tile.color}30` : 'none',
-                    transition: 'all 0.3s ease',
-                    transform: isHover ? 'scale(1.1)' : 'scale(1)',
+                    boxShadow: isHover
+                      ? '0 4px 16px rgba(255,255,255,0.3)'
+                      : `0 8px 24px ${tile.glowColor}`,
+                    transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                    transform: isHover ? 'scale(1.15) rotate(-3deg)' : 'scale(1) rotate(0)',
+                    backdropFilter: isHover ? 'blur(4px)' : 'none',
+                    border: isHover ? '1px solid rgba(255,255,255,0.35)' : 'none',
                   }}>
-                    <IconComp size={34} strokeWidth={1.8} />
+                    <IconComp size={30} strokeWidth={2} />
                   </div>
+
+                  {/* Emoji badge */}
+                  <div style={{
+                    position: 'absolute', top: '12px', left: '14px',
+                    fontSize: '0.85rem', opacity: isHover ? 0.9 : 0.4,
+                    transition: 'opacity 0.3s ease',
+                    lineHeight: 1,
+                  }}>
+                    {tile.emoji}
+                  </div>
+
                   <h3 style={{
-                    fontSize: '1rem', fontWeight: 800,
-                    color: isHover ? tile.color : '#1e293b',
-                    lineHeight: 1.3, transition: 'color 0.2s ease',
+                    fontSize: '0.95rem', fontWeight: 800,
+                    color: isHover ? '#ffffff' : '#1e293b',
+                    lineHeight: 1.3, transition: 'color 0.25s ease',
+                    marginBottom: '0.4rem',
                   }}>
                     {tile.title}
                   </h3>
+
+                  <p style={{
+                    fontSize: '0.72rem',
+                    color: isHover ? 'rgba(255,255,255,0.85)' : '#94a3b8',
+                    lineHeight: 1.4,
+                    transition: 'color 0.25s ease',
+                    maxWidth: '140px',
+                    margin: '0 auto',
+                  }}>
+                    {tile.desc}
+                  </p>
+
+                  {/* Arrow indicator on hover */}
+                  <div style={{
+                    marginTop: '0.8rem',
+                    opacity: isHover ? 1 : 0,
+                    transform: isHover ? 'translateY(0)' : 'translateY(4px)',
+                    transition: 'all 0.3s ease',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    color: 'rgba(255,255,255,0.9)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                  }}>
+                    Buka Layanan →
+                  </div>
                 </div>
               );
             })}
@@ -221,10 +373,11 @@ export default function PortalLayanan() {
 
         {/* Sub-text */}
         <p style={{
-          textAlign: 'center', fontSize: '0.88rem', color: '#64748b', marginBottom: '1.2rem',
+          textAlign: 'center', fontSize: '0.88rem', color: '#475569', marginBottom: '1.2rem',
+          fontWeight: 500,
           opacity: sectionVisible ? 1 : 0, transition: 'opacity 0.7s 0.5s ease',
         }}>
-          Sudah pernah mengajukan permohonan layanan? Cek kode layanan disini.
+          Sudah pernah mengajukan permohonan layanan? Cek kode layanan di bawah ini.
         </p>
 
         {/* Track Layanan Search */}
@@ -569,6 +722,14 @@ export default function PortalLayanan() {
         }
         @media (max-width: 480px) {
           .portal-grid { grid-template-columns: 1fr !important; }
+        }
+        @keyframes floatOrb {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-24px) scale(1.05); }
+        }
+        @keyframes particleFloat {
+          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+          50% { transform: translateY(-8px) scale(1.3); opacity: 1; }
         }
       `}</style>
     </section>
